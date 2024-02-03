@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -10,6 +10,10 @@ const Register = () => {
     password:"",
   })
 
+  const [err, setError] = useState(null)
+
+  const navigate = useNavigate()
+
   const handleChange = e =>{
       setInputs(prev=>({...prev, [e.target.name]: e.target.value}))
 
@@ -20,11 +24,11 @@ const Register = () => {
 
     try{
 
-      const res = await axios.post("http://localhost:8800/api/auth/register", inputs)
-      console.log(res)
+       await axios.post("http://localhost:8800/api/auth/register", inputs)
+        navigate("/login")
 
     }catch(err){
-      console.log(err)
+      setError(err.response.data)
     }
 
   }
@@ -33,12 +37,12 @@ const Register = () => {
     <div className='auth'>
         <h1>Register</h1>
         <form>
-            <input required type="text" placeholder='Username' name= 'username' onChange={handleChange}/>
-            <input required type="email" placeholder='Email' name= 'email' onChange={handleChange}/>
+            <input required type="text" placeholder='Username' name= 'username'  onChange={handleChange}/>
+            <input required type="email" placeholder='Email' name= 'email'  onChange={handleChange}/>
             <input required type="password" placeholder='Password' name= 'password' onChange={handleChange}/>
         </form>
         <button onClick={handleSubmit}>Register</button>
-        <p>This is an error!</p>
+        {err && <p>{err}</p>}
 
         <span>
            Already have an account?

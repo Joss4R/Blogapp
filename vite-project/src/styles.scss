@@ -89,7 +89,8 @@ html{
     .navbar{
        
         .container{
-            padding: 18px 0px;
+            //padding: 0;
+            
             display: flex;
             justify-content: space-between;
             gap: 25px;
@@ -98,14 +99,16 @@ html{
             .logo{
                 
                 img{
-                    width: 380px;
+                    width: 250px;
+                    height: 250px;
                 }
             }
 
             .links{
                 display: flex;
                 align-items: center;
-                gap: 15px;
+                gap: 25px;
+                
                 
 
                 h5{
